@@ -1,5 +1,5 @@
 import db from "../db.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
@@ -49,7 +49,7 @@ export async function getUser() {
 }
 
 export async function getUsersByLastLog(email) {
-  const edit = await db.query(`UPDATE users SET lasttime = NOW() WHERE email = $1` , [email])
+  await db.query(`UPDATE users SET lasttime = NOW() WHERE email = $1` , [email])
   const data = await db.query(`SELECT * FROM users ORDER BY lasttime DESC; `);
   return data.rows;
 }
