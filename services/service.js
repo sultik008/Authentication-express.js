@@ -50,7 +50,6 @@ export async function getUser() {
 
 export async function getUsersByLastLog(email) {
   const edit = await db.query(`UPDATE users SET lasttime = NOW() WHERE email = $1` , [email])
-  console.log(edit)
   const data = await db.query(`SELECT * FROM users ORDER BY lasttime DESC; `);
   return data.rows;
 }
